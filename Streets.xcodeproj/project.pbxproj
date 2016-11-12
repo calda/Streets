@@ -9,25 +9,29 @@
 /* Begin PBXBuildFile section */
 		2EFEF60B1DD7BC4C00EA383E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFEF60A1DD7BC4C00EA383E /* AppDelegate.swift */; };
 		2EFEF60D1DD7BC4C00EA383E /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF60C1DD7BC4C00EA383E /* GameScene.sks */; };
-		2EFEF60F1DD7BC4C00EA383E /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF60E1DD7BC4C00EA383E /* Actions.sks */; };
 		2EFEF6111DD7BC4C00EA383E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFEF6101DD7BC4C00EA383E /* GameScene.swift */; };
 		2EFEF6131DD7BC4C00EA383E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFEF6121DD7BC4C00EA383E /* GameViewController.swift */; };
 		2EFEF6161DD7BC4C00EA383E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6141DD7BC4C00EA383E /* Main.storyboard */; };
 		2EFEF6181DD7BC4C00EA383E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */; };
 		2EFEF61B1DD7BC4C00EA383E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6191DD7BC4C00EA383E /* LaunchScreen.storyboard */; };
+		2EFEF6231DD7BEDB00EA383E /* TouchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFEF6221DD7BEDB00EA383E /* TouchDelegate.swift */; };
+		2EFEF6251DD7C0E800EA383E /* CreateRoadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFEF6241DD7C0E800EA383E /* CreateRoadDelegate.swift */; };
+		2EFEF6291DD7C8BC00EA383E /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFEF6281DD7C8BC00EA383E /* Geometry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2EFEF6071DD7BC4C00EA383E /* Streets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EFEF60A1DD7BC4C00EA383E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EFEF60C1DD7BC4C00EA383E /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		2EFEF60E1DD7BC4C00EA383E /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		2EFEF6101DD7BC4C00EA383E /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		2EFEF6121DD7BC4C00EA383E /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		2EFEF6151DD7BC4C00EA383E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EFEF61A1DD7BC4C00EA383E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2EFEF61C1DD7BC4C00EA383E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EFEF6221DD7BEDB00EA383E /* TouchDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchDelegate.swift; sourceTree = "<group>"; };
+		2EFEF6241DD7C0E800EA383E /* CreateRoadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateRoadDelegate.swift; sourceTree = "<group>"; };
+		2EFEF6281DD7C8BC00EA383E /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +66,15 @@
 			children = (
 				2EFEF60A1DD7BC4C00EA383E /* AppDelegate.swift */,
 				2EFEF60C1DD7BC4C00EA383E /* GameScene.sks */,
-				2EFEF60E1DD7BC4C00EA383E /* Actions.sks */,
 				2EFEF6101DD7BC4C00EA383E /* GameScene.swift */,
 				2EFEF6121DD7BC4C00EA383E /* GameViewController.swift */,
 				2EFEF6141DD7BC4C00EA383E /* Main.storyboard */,
 				2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */,
 				2EFEF6191DD7BC4C00EA383E /* LaunchScreen.storyboard */,
 				2EFEF61C1DD7BC4C00EA383E /* Info.plist */,
+				2EFEF6221DD7BEDB00EA383E /* TouchDelegate.swift */,
+				2EFEF6241DD7C0E800EA383E /* CreateRoadDelegate.swift */,
+				2EFEF6281DD7C8BC00EA383E /* Geometry.swift */,
 			);
 			path = Streets;
 			sourceTree = "<group>";
@@ -137,7 +143,6 @@
 				2EFEF60D1DD7BC4C00EA383E /* GameScene.sks in Resources */,
 				2EFEF6181DD7BC4C00EA383E /* Assets.xcassets in Resources */,
 				2EFEF61B1DD7BC4C00EA383E /* LaunchScreen.storyboard in Resources */,
-				2EFEF60F1DD7BC4C00EA383E /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,9 +153,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EFEF6231DD7BEDB00EA383E /* TouchDelegate.swift in Sources */,
+				2EFEF6291DD7C8BC00EA383E /* Geometry.swift in Sources */,
 				2EFEF6111DD7BC4C00EA383E /* GameScene.swift in Sources */,
 				2EFEF6131DD7BC4C00EA383E /* GameViewController.swift in Sources */,
 				2EFEF60B1DD7BC4C00EA383E /* AppDelegate.swift in Sources */,
+				2EFEF6251DD7C0E800EA383E /* CreateRoadDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
