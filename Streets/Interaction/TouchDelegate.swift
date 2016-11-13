@@ -17,3 +17,14 @@ protocol TouchDelegate {
     func touchCancelled(at point: CGPoint)
     
 }
+
+protocol RoutableTouchDelegate : TouchDelegate {
+    func routingPriotory(from scene: GameScene, at point: CGPoint) -> RoutingPriotory
+}
+
+enum RoutingPriotory : Int {
+    case high = 10
+    case medium = 5
+    case low = 2
+    case minimum = 1
+}
