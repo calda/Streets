@@ -21,7 +21,7 @@ class CreateStreetDelegate : RoutableTouchDelegate {
     func routingPriotory(from scene: GameScene, at point: CGPoint) -> RoutingPriotory {
         cleanUp() //in case any references are still hanging around
         
-        if let closestIntersection = self.owner.closestIntersection(to: point, within: 20.0) {
+        if let closestIntersection = self.owner.closestIntersection(to: point, within: 30.0) {
             self.startingIntersection = closestIntersection
             print("from intersection")
             return .high //high priority if dragging from an existing intersection
@@ -36,7 +36,7 @@ class CreateStreetDelegate : RoutableTouchDelegate {
     
     func commitStreet(withFinalPoint endPoint: CGPoint) {
         
-        let closestToEnd = self.owner.closestIntersection(to: endPoint, within: 20.0)
+        let closestToEnd = self.owner.closestIntersection(to: endPoint, within: 30.0)
         let endIntersection = closestToEnd ?? Intersection(position: endPoint)
         
         //add intersections

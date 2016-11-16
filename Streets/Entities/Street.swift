@@ -8,21 +8,28 @@
 
 import Foundation
 import SpriteKit
+import CGPathIntersection
 
 class Street : SKShapeNode {
     
+    lazy var pathImage: CGPathImage = {
+        return CGPathImage(from: self.path!)
+    }()
     
     //MARK: - Managing Intersections
     
-    private var intersectons = [Intersection]()
+    private var intersections = [Intersection]()
     
     public var allIntersections: [Intersection] {
-        return self.intersectons
+        return self.intersections
     }
     
     func addIntersection(_ intersection: Intersection) {
-        intersectons.append(intersection)
+        if intersections.contains(intersection) { return }
+
+        intersections.append(intersection)
         intersection.addStreet(self)
     }
+    
     
 }

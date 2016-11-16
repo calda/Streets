@@ -41,6 +41,7 @@ class Intersection : SKShapeNode {
     
     ///Call Street.addIntersection instead
     func addStreet(_ street: Street) {
+        if streets.contains(street) { return }
         self.streets.add(street)
     }
     

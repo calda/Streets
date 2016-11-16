@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import CGPathIntersection
 
 class GameScene: SKScene {
     
@@ -19,6 +20,8 @@ class GameScene: SKScene {
         
         self.touchDelegate = RoutingDelegate(owner: self)
         self.touchDelegate?.delegates = delegates
+        self.anchorPoint = CGPoint(x: 0, y: 0)
+        self.yScale = -1
     }
     
     
@@ -48,15 +51,30 @@ class GameScene: SKScene {
     
     
     /// Creates a strong reference to the street,
-    public func addStreet(_ street: Street) {
-        streets.append(street)
-        self.addChild(street)
+    public func addStreet(_ newStreet: Street) {
+        if streets.contains(newStreet) { return }
         
-        street.allIntersections.forEach { intersection in
+        //create intersections as necessary
+        for street in streets {
+            let intersectionPoints = street.pathImage.intersectionPoints(with: newStreet.pathImage)
+            
+            for intersectionPoint in intersectionPoints {
+                let intersection = closestIntersection(to: intersectionPoint, within: 10.0) ?? Intersection(position: intersectionPoint)
+                
+                street.addIntersection(intersection)
+                newStreet.addIntersection(intersection)
+            }
+        }
+        
+        //add all intersections to the scene
+        newStreet.allIntersections.forEach { intersection in
             if intersection.parent == nil {
                 self.addChild(intersection)
             }
         }
+        
+        streets.append(newStreet)
+        self.addChild(newStreet)
     }
     
     

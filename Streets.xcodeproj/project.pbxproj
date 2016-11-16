@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EB55C541DD947C300EAFC46 /* CGPathIntersection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB55C531DD947C300EAFC46 /* CGPathIntersection.framework */; };
+		2EB55C551DD947C300EAFC46 /* CGPathIntersection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB55C531DD947C300EAFC46 /* CGPathIntersection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2EFEF6161DD7BC4C00EA383E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6141DD7BC4C00EA383E /* Main.storyboard */; };
 		2EFEF6181DD7BC4C00EA383E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */; };
 		2EFEF61B1DD7BC4C00EA383E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6191DD7BC4C00EA383E /* LaunchScreen.storyboard */; };
@@ -22,7 +24,22 @@
 		2EFEF6451DD8049500EA383E /* RoutingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFEF6441DD8049500EA383E /* RoutingDelegate.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2EB55C561DD947C300EAFC46 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2EB55C551DD947C300EAFC46 /* CGPathIntersection.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2EB55C531DD947C300EAFC46 /* CGPathIntersection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CGPathIntersection.framework; path = Carthage/Build/iOS/CGPathIntersection.framework; sourceTree = "<group>"; };
 		2EFEF6071DD7BC4C00EA383E /* Streets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EFEF6151DD7BC4C00EA383E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -45,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EB55C541DD947C300EAFC46 /* CGPathIntersection.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +72,7 @@
 		2EFEF5FE1DD7BC4C00EA383E = {
 			isa = PBXGroup;
 			children = (
+				2EB55C531DD947C300EAFC46 /* CGPathIntersection.framework */,
 				2EFEF6091DD7BC4C00EA383E /* Streets */,
 				2EFEF6081DD7BC4C00EA383E /* Products */,
 			);
@@ -72,9 +91,9 @@
 			children = (
 				2EFEF62D1DD7F37F00EA383E /* Controllers */,
 				2EFEF63B1DD7F45300EA383E /* Scenes */,
-				2EFEF62E1DD7F38B00EA383E /* Helpers */,
 				2EFEF62B1DD7F30E00EA383E /* Interaction */,
 				2EFEF62A1DD7F30000EA383E /* Entities */,
+				2EFEF62E1DD7F38B00EA383E /* Helpers */,
 				2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */,
 				2EFEF61C1DD7BC4C00EA383E /* Info.plist */,
 			);
@@ -138,6 +157,7 @@
 				2EFEF6031DD7BC4C00EA383E /* Sources */,
 				2EFEF6041DD7BC4C00EA383E /* Frameworks */,
 				2EFEF6051DD7BC4C00EA383E /* Resources */,
+				2EB55C561DD947C300EAFC46 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -336,6 +356,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = FZ89A5SZ7C;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Streets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.calstephens.Streets;
@@ -351,6 +375,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = FZ89A5SZ7C;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Streets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.calstephens.Streets;
@@ -378,6 +406,7 @@
 				2EFEF6211DD7BC4C00EA383E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
