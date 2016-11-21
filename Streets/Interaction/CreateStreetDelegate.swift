@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import CGPathIntersection
 
 class CreateStreetDelegate : RoutableTouchDelegate {
     
@@ -21,14 +22,41 @@ class CreateStreetDelegate : RoutableTouchDelegate {
     func routingPriotory(from scene: GameScene, at point: CGPoint) -> RoutingPriotory {
         cleanUp() //in case any references are still hanging around
         
+        let (intersection, priotity) = self.intersection(for: point)
+        self.startingIntersection = intersection
+        return priotity
+    }
+    
+    private func intersection(for point: CGPoint) -> (intersection: Intersection, priority: RoutingPriotory) {
+        
         if let closestIntersection = self.owner.closestIntersection(to: point, within: 30.0) {
-            self.startingIntersection = closestIntersection
             print("from intersection")
-            return .high //high priority if dragging from an existing intersection
+            return (closestIntersection, .high) //high priority if dragging from an existing intersection
         }
         
-        print("from point")
-        return .minimum //low priotiry if dragging from somewhere arbitrary
+        //else if let existingStreet = street(at: point) {
+            //create a new intersection
+            //but that can't be added to the existing street immediately
+            //what's the best way to go about that?
+        //}
+        
+        else {
+            return (Intersection(position: point), .minimum) //low priotiry if dragging from somewhere arbitrary
+        }
+    }
+    
+    private func street(at point: CGPoint) -> Street? {
+        let rectForPoint = CGRect(x: point.x - 5, y: point.y - 5, width: 10, height: 10)
+        let pathForPoint = UIBezierPath(ovalIn: rectForPoint).cgPath
+        let pointImage = CGPathImage(from: pathForPoint)
+        
+        for street in owner.allStreets {
+            if street.pathImage.intersects(path: pointImage) {
+                return street
+            }
+        }
+        
+        return nil
     }
     
     
@@ -42,6 +70,7 @@ class CreateStreetDelegate : RoutableTouchDelegate {
         //add intersections
         currentStreet.addIntersection(self.startingIntersection)
         currentStreet.addIntersection(endIntersection)
+        currentStreet.path = currentStreet.path(from: self.startingIntersection, to: endIntersection)
         
         print("Start intersection has \(self.startingIntersection.allStreets.count) streets and end intersection has \(endIntersection.allStreets.count) streets.")
         
@@ -64,9 +93,7 @@ class CreateStreetDelegate : RoutableTouchDelegate {
             self.startingIntersection = Intersection(position: point)
         }
         
-        self.currentStreet = Street(path: CGPath(rect: .zero, transform: nil))
-        self.currentStreet.strokeColor = .red
-        self.currentStreet.lineWidth = 10.0
+        self.currentStreet = Street(startingAt: self.startingIntersection.position)
         self.owner.addChild(self.currentStreet)
     }
     

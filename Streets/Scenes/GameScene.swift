@@ -21,7 +21,20 @@ class GameScene: SKScene {
         self.touchDelegate = RoutingDelegate(owner: self)
         self.touchDelegate?.delegates = delegates
         self.anchorPoint = CGPoint(x: 0, y: 0)
-        self.yScale = -1
+        
+        //create streets
+        
+        let roundabout = Roundabout(at: CGPoint(x: 300, y: 500), radius: 160.0)
+        self.addStreet(roundabout)
+        
+        let initialIntersection = Intersection(position: CGPoint(x: 460, y: 500))
+        self.addChild(initialIntersection)
+        roundabout.addIntersection(initialIntersection)
+        
+        let car = Car.new(at: initialIntersection)
+        self.addChild(car)
+        car.travelToRandomIntersection()
+        
     }
     
     
@@ -49,12 +62,21 @@ class GameScene: SKScene {
         return closestIntersection
     }
     
+    public func addIntersectionIfNecessary(_ intersection: Intersection) {
+        if intersection.parent == nil {
+            self.addChild(intersection)
+        }
+    }
     
-    /// Creates a strong reference to the street,
+    
+    ///Creates a strong reference to the street
     public func addStreet(_ newStreet: Street) {
         if streets.contains(newStreet) { return }
         
-        //create intersections as necessary
+        //add all intersections to the scene
+        newStreet.allIntersections.forEach(self.addIntersectionIfNecessary)
+        
+        //create additional intersections as necessary
         for street in streets {
             let intersectionPoints = street.pathImage.intersectionPoints(with: newStreet.pathImage)
             
@@ -63,13 +85,8 @@ class GameScene: SKScene {
                 
                 street.addIntersection(intersection)
                 newStreet.addIntersection(intersection)
-            }
-        }
-        
-        //add all intersections to the scene
-        newStreet.allIntersections.forEach { intersection in
-            if intersection.parent == nil {
-                self.addChild(intersection)
+                
+                self.addIntersectionIfNecessary(intersection)
             }
         }
         

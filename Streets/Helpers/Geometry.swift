@@ -17,6 +17,19 @@ extension CGPoint {
         return sqrt((self.x - point.x)^2 + (self.y - point.y)^2)
     }
     
+    ///Angle in radians
+    func angle(to point: CGPoint) -> CGFloat {
+        let deltaX = point.x - self.x
+        let deltaY = point.y - self.y
+        
+        let angle = atan2(deltaY, deltaX)
+        return angle
+    }
+    
+}
+
+func +(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x + right.x, y: left.y + right.y)
 }
 
 
