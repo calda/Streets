@@ -13,22 +13,20 @@ class Intersection : SKShapeNode {
     
     private var streets: NSHashTable<Street> //NSHashTable holding weak references
     
-    convenience init(position: CGPoint) { 
-        self.init()
-        self.position = position
-        let rect = CGRect(origin: CGPoint(x: -15, y: -15), size: CGSize(width: 30, height: 30))
-        self.path = CGPath(rect: rect, transform: nil)
-    }
-    
-    override init() {
+    init(position: CGPoint) {
         self.streets = NSHashTable<Street>(options: .weakMemory)
         super.init()
-        self.fillColor = .red
+        
+        self.position = position
+        
+        let rect = CGRect(origin: CGPoint(x: -15, y: -15), size: CGSize(width: 30, height: 30))
+        self.path = CGPath(rect: rect, transform: nil)
+        self.fillColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 0.5)
+        self.strokeColor = .clear
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.streets = NSHashTable<Street>(options: .weakMemory)
-        super.init()
+        return nil
     }
     
     

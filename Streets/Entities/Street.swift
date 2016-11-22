@@ -32,8 +32,7 @@ class Street : SKShapeNode {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.startingPoint = .zero
-        super.init()
+        return nil
     }
     
     

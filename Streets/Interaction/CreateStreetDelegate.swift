@@ -27,36 +27,21 @@ class CreateStreetDelegate : RoutableTouchDelegate {
         return priotity
     }
     
-    private func intersection(for point: CGPoint) -> (intersection: Intersection, priority: RoutingPriotory) {
+    private func intersection(for touch: CGPoint) -> (intersection: Intersection, priority: RoutingPriotory) {
         
-        if let closestIntersection = self.owner.closestIntersection(to: point, within: 30.0) {
+        if let closestIntersection = self.owner.closestIntersection(to: touch, within: 30.0) {
             print("from intersection")
             return (closestIntersection, .high) //high priority if dragging from an existing intersection
         }
         
-        //else if let existingStreet = street(at: point) {
-            //create a new intersection
-            //but that can't be added to the existing street immediately
-            //what's the best way to go about that?
-        //}
+        else if let (existingStreet, intersectionPoint) = owner.street(at: touch, within: 30.0) {
+            print(existingStreet)
+            return (Intersection(position: intersectionPoint), .low) //low priority from arbitrary point on street
+        }
         
         else {
-            return (Intersection(position: point), .minimum) //low priotiry if dragging from somewhere arbitrary
+            return (Intersection(position: touch), .minimum) //minimum priotiry if dragging from somewhere arbitrary
         }
-    }
-    
-    private func street(at point: CGPoint) -> Street? {
-        let rectForPoint = CGRect(x: point.x - 5, y: point.y - 5, width: 10, height: 10)
-        let pathForPoint = UIBezierPath(ovalIn: rectForPoint).cgPath
-        let pointImage = CGPathImage(from: pathForPoint)
-        
-        for street in owner.allStreets {
-            if street.pathImage.intersects(path: pointImage) {
-                return street
-            }
-        }
-        
-        return nil
     }
     
     
@@ -64,8 +49,7 @@ class CreateStreetDelegate : RoutableTouchDelegate {
     
     func commitStreet(withFinalPoint endPoint: CGPoint) {
         
-        let closestToEnd = self.owner.closestIntersection(to: endPoint, within: 30.0)
-        let endIntersection = closestToEnd ?? Intersection(position: endPoint)
+        let endIntersection = self.intersection(for: endPoint).intersection
         
         //add intersections
         currentStreet.addIntersection(self.startingIntersection)
@@ -105,7 +89,7 @@ class CreateStreetDelegate : RoutableTouchDelegate {
     }
     
     func touchUp(at point: CGPoint) {
-        if point.distance(to: self.startingIntersection.position) < 10.0 {
+        if point.distance(to: self.startingIntersection.position) < 30.0 {
             touchCancelled(at: point)
         } else {
             commitStreet(withFinalPoint: point)

@@ -22,9 +22,7 @@ class Roundabout : Street {
     }
     
     required init?(coder: NSCoder) {
-        self.center = .zero
-        self.radius = 0
-        super.init(startingAt: .zero)
+        return nil
     }
     
     func update(center: CGPoint, radius: CGFloat) {

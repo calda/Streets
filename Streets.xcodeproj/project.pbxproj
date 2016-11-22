@@ -12,6 +12,7 @@
 		2EB55C541DD947C300EAFC46 /* CGPathIntersection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB55C531DD947C300EAFC46 /* CGPathIntersection.framework */; };
 		2EB55C551DD947C300EAFC46 /* CGPathIntersection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB55C531DD947C300EAFC46 /* CGPathIntersection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2EFBA8551DE2907400ADF037 /* Roundabout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBA8541DE2907400ADF037 /* Roundabout.swift */; };
+		2EFBA8571DE3EDFF00ADF037 /* Spawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBA8561DE3EDFF00ADF037 /* Spawner.swift */; };
 		2EFEF6161DD7BC4C00EA383E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6141DD7BC4C00EA383E /* Main.storyboard */; };
 		2EFEF6181DD7BC4C00EA383E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */; };
 		2EFEF61B1DD7BC4C00EA383E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6191DD7BC4C00EA383E /* LaunchScreen.storyboard */; };
@@ -46,6 +47,7 @@
 		2E14458F1DE2501400B386CD /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+Helpers.swift"; path = "Helpers/Array+Helpers.swift"; sourceTree = "<group>"; };
 		2EB55C531DD947C300EAFC46 /* CGPathIntersection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CGPathIntersection.framework; path = Carthage/Build/iOS/CGPathIntersection.framework; sourceTree = "<group>"; };
 		2EFBA8541DE2907400ADF037 /* Roundabout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Roundabout.swift; path = Entities/Roundabout.swift; sourceTree = "<group>"; };
+		2EFBA8561DE3EDFF00ADF037 /* Spawner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Spawner.swift; path = Entities/Spawner.swift; sourceTree = "<group>"; };
 		2EFEF6071DD7BC4C00EA383E /* Streets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EFEF6151DD7BC4C00EA383E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				2EFEF6421DD7F5C500EA383E /* Street.swift */,
 				2EFBA8541DE2907400ADF037 /* Roundabout.swift */,
 				2E14458D1DE23A2500B386CD /* Car.swift */,
+				2EFBA8561DE3EDFF00ADF037 /* Spawner.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				2EFEF6451DD8049500EA383E /* RoutingDelegate.swift in Sources */,
 				2EFEF6411DD7F50F00EA383E /* Intersection.swift in Sources */,
 				2EFEF6431DD7F5C500EA383E /* Street.swift in Sources */,
+				2EFBA8571DE3EDFF00ADF037 /* Spawner.swift in Sources */,
 				2EFEF6391DD7F3F900EA383E /* CreateStreetDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

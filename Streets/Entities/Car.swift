@@ -21,7 +21,8 @@ class Car : SKShapeNode {
         car.previousStreet = intersection.allStreets.randomItem()
         
         car.position = intersection.position
-        car.fillColor = UIColor.blue
+        car.fillColor = .blue
+        car.strokeColor = .clear
         car.zPosition = 1.0
         return car
     }
@@ -54,5 +55,8 @@ class Car : SKShapeNode {
         self.run(SKAction.sequence([drive, chooseNextIntersection]))
         
     }
+    
+    
+    //MARK: - Helpers
     
 }
