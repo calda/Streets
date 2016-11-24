@@ -9,54 +9,109 @@
 import Foundation
 import SpriteKit
 
-class Car : SKShapeNode {
+///percentage from start to end -> position & rotation
+public typealias PositionFunction = (CGFloat) -> (position: CGPoint, rotation: CGFloat)
+public typealias TravelDetails = (travelFunction: PositionFunction, distance: CGFloat)
+
+private typealias TravelLeg = (street: Street, destination: Intersection, details: TravelDetails)
+
+class Car : SKShapeNode, RunsOnGameLoop {
     
     var driveSpeed: CGFloat = 200.0
-    var previousIntersection: Intersection? = nil
-    var previousStreet: Street? = nil
     
-    static func new(at intersection: Intersection) -> Car {
-        let car = Car(circleOfRadius: 20.0)
-        car.previousIntersection = intersection
-        car.previousStreet = intersection.allStreets.randomItem()
+    private var currentLeg: TravelLeg?
+    private var nextLeg: TravelLeg?
+    
+    var travelPercentage: CGFloat = 0.0
+    
+    init(at intersection: Intersection) {
+        super.init()
         
-        car.position = intersection.position
-        car.fillColor = .blue
-        car.strokeColor = .clear
-        car.zPosition = 1.0
-        return car
+        let path = self.shape()
+        self.path = path
+        self.position = intersection.position
+        self.fillColor = .blue
+        self.strokeColor = .clear
+        self.zPosition = 1.0
+        
+        self.currentLeg = randomLeg(from: intersection)
     }
     
-    func travelToRandomIntersection() {
-        guard let currentIntersection = previousIntersection else { return }
-        
+    required init?(coder aDecoder: NSCoder) {
+        return nil
+    }
+    
+    
+    //MARK: - Behavior
+    
+    private func randomLeg(from currentIntersection: Intersection, excluding previousLeg: TravelLeg? = nil) -> TravelLeg {
         let possibleStreets = currentIntersection.allStreets
-        let nextStreet = possibleStreets.randomItem(excluding: self.previousStreet)
-        let nextIntersection = nextStreet.allIntersections.randomItem(excluding: currentIntersection)
+        let nextStreet = possibleStreets.randomItem(excluding: previousLeg?.street)
+        let nextIntersection = nextStreet.allIntersections.randomItem(excluding: previousLeg?.destination)
+        let travelDetails = nextStreet.travelDetails(from: currentIntersection, to: nextIntersection)
         
-        self.travel(between: currentIntersection, and: nextIntersection, on: nextStreet)
+        return (street: nextStreet, destination: nextIntersection, details: travelDetails)
     }
     
-    func travel(between start: Intersection, and end: Intersection, on street: Street) {
-        self.position = start.position
+    
+    //MARK: - Run Loop
+    
+    func update(delta: CGFloat) {
+        guard let (_, _, (positionFunction, distance)) = self.currentLeg else { return }
+        let distanceRemaining = distance - (distance * self.travelPercentage)
         
-        guard let path = street.path(from: start, to: end) else {
-            fatalError("Street does not contain both intersections")
+        //update current position
+        let (newPosition, newAngle) = positionFunction(self.travelPercentage)
+        self.position = newPosition
+        self.zRotation = interpolatedRotation(newAngle, distanceRemaining: distanceRemaining)
+        
+        if (self.travelPercentage >= 1.0) {
+            self.currentLeg = self.nextLeg
+            self.nextLeg = nil
+            self.travelPercentage = 0.0
+            return
         }
         
-        let drive = SKAction.follow(path, asOffset: false, orientToPath: false, speed: self.driveSpeed)
-        
-        let chooseNextIntersection = SKAction.run {
-            self.previousIntersection = end
-            self.previousStreet = street
-            self.travelToRandomIntersection()
+        //calculate updated percentage
+        let percentagePerUpdate = (driveSpeed / distance) * delta
+        self.travelPercentage = min(self.travelPercentage + percentagePerUpdate, 1.0)
+    }
+
+    func interpolatedRotation(_ rotation: CGFloat, distanceRemaining: CGFloat) -> CGFloat {
+        let minimumDistance: CGFloat = 50.0
+        if distanceRemaining > minimumDistance {
+            return rotation
         }
         
-        self.run(SKAction.sequence([drive, chooseNextIntersection]))
+        if self.nextLeg == nil {
+            self.nextLeg = self.randomLeg(from: self.currentLeg!.destination, excluding: self.currentLeg)
+        }
         
+        let currentRotation = self.zRotation
+        let initialRotation = self.nextLeg!.details.travelFunction(0.0).rotation
+        let interpolationPercentage = 1 - (distanceRemaining / minimumDistance)
+        
+        let difference = initialRotation - currentRotation
+        let interpolatedRotation = currentRotation + (difference * interpolationPercentage)
+        return interpolatedRotation
     }
     
     
     //MARK: - Helpers
     
+    private func shape() -> CGPath {
+        let tip = CGPoint(x: 25, y: 0)
+        let corner1 = tip + (-50, -20)
+        let inlet = corner1 + (10, 20)
+        let corner2 = inlet + (-10, 20)
+        
+        let path = UIBezierPath()
+        path.move(to: tip)
+        path.addLine(to: corner1)
+        path.addLine(to: inlet)
+        path.addLine(to: corner2)
+        path.close()
+        
+        return path.cgPath
+    }
 }

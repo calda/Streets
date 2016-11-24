@@ -13,6 +13,7 @@
 		2EB55C551DD947C300EAFC46 /* CGPathIntersection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB55C531DD947C300EAFC46 /* CGPathIntersection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2EFBA8551DE2907400ADF037 /* Roundabout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBA8541DE2907400ADF037 /* Roundabout.swift */; };
 		2EFBA8571DE3EDFF00ADF037 /* Spawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBA8561DE3EDFF00ADF037 /* Spawner.swift */; };
+		2EFBA8591DE4114000ADF037 /* RunsOnGameLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBA8581DE4114000ADF037 /* RunsOnGameLoop.swift */; };
 		2EFEF6161DD7BC4C00EA383E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6141DD7BC4C00EA383E /* Main.storyboard */; };
 		2EFEF6181DD7BC4C00EA383E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */; };
 		2EFEF61B1DD7BC4C00EA383E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEF6191DD7BC4C00EA383E /* LaunchScreen.storyboard */; };
@@ -48,6 +49,7 @@
 		2EB55C531DD947C300EAFC46 /* CGPathIntersection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CGPathIntersection.framework; path = Carthage/Build/iOS/CGPathIntersection.framework; sourceTree = "<group>"; };
 		2EFBA8541DE2907400ADF037 /* Roundabout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Roundabout.swift; path = Entities/Roundabout.swift; sourceTree = "<group>"; };
 		2EFBA8561DE3EDFF00ADF037 /* Spawner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Spawner.swift; path = Entities/Spawner.swift; sourceTree = "<group>"; };
+		2EFBA8581DE4114000ADF037 /* RunsOnGameLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RunsOnGameLoop.swift; path = Entities/RunsOnGameLoop.swift; sourceTree = "<group>"; };
 		2EFEF6071DD7BC4C00EA383E /* Streets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Streets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EFEF6151DD7BC4C00EA383E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2EFEF6171DD7BC4C00EA383E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				2EFBA8541DE2907400ADF037 /* Roundabout.swift */,
 				2E14458D1DE23A2500B386CD /* Car.swift */,
 				2EFBA8561DE3EDFF00ADF037 /* Spawner.swift */,
+				2EFBA8581DE4114000ADF037 /* RunsOnGameLoop.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EFBA8591DE4114000ADF037 /* RunsOnGameLoop.swift in Sources */,
 				2EFEF63F1DD7F45D00EA383E /* GameScene.swift in Sources */,
 				2EFEF63A1DD7F3F900EA383E /* TouchDelegate.swift in Sources */,
 				2E14458E1DE23A2500B386CD /* Car.swift in Sources */,

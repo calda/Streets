@@ -28,9 +28,8 @@ class Spawner : SKShapeNode {
         
         let spawnCar = SKAction.run {
             if intersection.allStreets.count != 0 {
-                let car = Car.new(at: intersection)
+                let car = Car(at: intersection)
                 self.parent?.addChild(car)
-                car.travelToRandomIntersection()
             }
         }
         

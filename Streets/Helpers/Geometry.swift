@@ -28,13 +28,39 @@ extension CGPoint {
     
 }
 
+prefix func -(point: CGPoint) -> CGPoint {
+    return CGPoint(x: -point.x, y: -point.y)
+}
+
 func +(left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x + right.x, y: left.y + right.y)
 }
 
+//special syntax: point + (x, y)
 func +(left: CGPoint, right: (x: CGFloat, y: CGFloat)) -> CGPoint {
     return CGPoint(x: left.x + right.x, y: left.y + right.y)
 }
+
+func -(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x - right.x, y: left.y - right.y)
+}
+
+func *(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x * right.x, y: left.y * right.y)
+}
+
+func *(left: CGPoint, right: CGFloat) -> CGPoint {
+    return CGPoint(x: left.x * right, y: left.y * right)
+}
+
+func /(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x / right.x, y: left.y / right.y)
+}
+
+func /(left: CGPoint, right: CGFloat) -> CGPoint {
+    return CGPoint(x: left.x / right, y: left.y / right)
+}
+
 
 
 //MARK: - Double Operators

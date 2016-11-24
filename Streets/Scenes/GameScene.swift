@@ -139,7 +139,25 @@ class GameScene: SKScene {
     
     
     //MARK: - Internal Clock
+    
+    var previousUpdate: TimeInterval?
+        
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        
+        if let previousUpdate = self.previousUpdate {
+            let delta = currentTime - previousUpdate
+            self.previousUpdate = currentTime
+            
+            self.children.forEach { child in
+                if let needsUpdate = child as? RunsOnGameLoop {
+                    needsUpdate.update(delta: CGFloat(delta))
+                }
+            }
+        }
+        
+        else {
+            self.previousUpdate = currentTime
+        }
+        
     }
 }

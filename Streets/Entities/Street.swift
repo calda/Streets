@@ -69,6 +69,19 @@ class Street : SKShapeNode {
         return one_distanceFromStart <= two_distanceFromStart
     }
     
+    func travelDetails(from start: Intersection, to end: Intersection) -> TravelDetails {
+        let angle = start.position.angle(to: end.position)
+        let totalTranslation = end.position - start.position
+        
+        let positionFunction: PositionFunction = { percentage in
+            let translation = totalTranslation * percentage
+            return (position: start.position + translation, rotation: angle)
+        }
+        
+        let distance = start.position.distance(to: end.position)
+        return (positionFunction, distance)
+    }
+    
     func path(from start: Intersection, to end: Intersection) -> CGPath? {
         if !self.hasAccess(to: start) || !self.hasAccess(to: end) {
             return nil
