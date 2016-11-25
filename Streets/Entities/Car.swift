@@ -19,15 +19,17 @@ class Car : SKShapeNode, RunsOnGameLoop {
     
     var driveSpeed: CGFloat = 200.0
     
+    private var rotationBeforeSwitch: CGFloat?
     private var currentLeg: TravelLeg?
     private var nextLeg: TravelLeg?
     
+    ///linear percentage between start and end
     var travelPercentage: CGFloat = 0.0
     
     init(at intersection: Intersection) {
         super.init()
         
-        let path = self.shape()
+        let path = self.carShape
         self.path = path
         self.position = intersection.position
         self.fillColor = .blue
@@ -57,15 +59,43 @@ class Car : SKShapeNode, RunsOnGameLoop {
     //MARK: - Run Loop
     
     func update(delta: CGFloat) {
-        guard let (_, _, (positionFunction, distance)) = self.currentLeg else { return }
-        let distanceRemaining = distance - (distance * self.travelPercentage)
+        guard let (_, destination, (positionFunction, distance)) = self.currentLeg else { return }
+        let distanceSoFar = distance * self.travelPercentage
+        let distanceRemaining = distance - distanceSoFar
         
         //update current position
-        let (newPosition, newAngle) = positionFunction(self.travelPercentage)
+        let positionPercentage = CGFloat(-0.5 * cos(M_PI * Double(self.travelPercentage)) + 0.5) //0.5cos(πx) + 0.5
+        let (newPosition, newAngle) = positionFunction(positionPercentage)
         self.position = newPosition
-        self.zRotation = interpolatedRotation(newAngle, distanceRemaining: distanceRemaining)
         
+        //calculate rotation
+        let interpolationRange: CGFloat = 100.0
+        let halfRange = (interpolationRange / 2)
+        
+        //first half of interopolation is at end of leg
+        if distanceRemaining < halfRange {
+            if self.nextLeg == nil {
+                self.nextLeg = self.randomLeg(from: destination, excluding: self.currentLeg)
+            }
+            
+            let initialRotationOfNext = self.nextLeg!.details.travelFunction(0.0).rotation
+            let percentage = 0.5 - (distanceRemaining / interpolationRange)
+            self.zRotation = self.interpolateRotation(newAngle, towards: initialRotationOfNext, interpolationPercentage: percentage)
+        }
+        
+        //last half of interpolation is at start of next leg
+        else if distanceSoFar < halfRange, let previousRotation = self.rotationBeforeSwitch {
+            let percentage = (distanceSoFar) / halfRange
+            self.zRotation = self.interpolateRotation(previousRotation, towards: newAngle, interpolationPercentage: percentage)
+        }
+        
+        else {
+            self.zRotation = newAngle
+        }
+        
+        //start next leg if ready
         if (self.travelPercentage >= 1.0) {
+            self.rotationBeforeSwitch = self.zRotation
             self.currentLeg = self.nextLeg
             self.nextLeg = nil
             self.travelPercentage = 0.0
@@ -76,30 +106,17 @@ class Car : SKShapeNode, RunsOnGameLoop {
         let percentagePerUpdate = (driveSpeed / distance) * delta
         self.travelPercentage = min(self.travelPercentage + percentagePerUpdate, 1.0)
     }
-
-    func interpolatedRotation(_ rotation: CGFloat, distanceRemaining: CGFloat) -> CGFloat {
-        let minimumDistance: CGFloat = 50.0
-        if distanceRemaining > minimumDistance {
-            return rotation
-        }
-        
-        if self.nextLeg == nil {
-            self.nextLeg = self.randomLeg(from: self.currentLeg!.destination, excluding: self.currentLeg)
-        }
-        
-        let currentRotation = self.zRotation
-        let initialRotation = self.nextLeg!.details.travelFunction(0.0).rotation
-        let interpolationPercentage = 1 - (distanceRemaining / minimumDistance)
-        
-        let difference = initialRotation - currentRotation
-        let interpolatedRotation = currentRotation + (difference * interpolationPercentage)
+    
+    func interpolateRotation(_ current: CGFloat, towards end: CGFloat, interpolationPercentage: CGFloat) -> CGFloat {
+        let difference = end - current
+        let interpolatedRotation = current + (difference * interpolationPercentage)
         return interpolatedRotation
     }
     
     
     //MARK: - Helpers
     
-    private func shape() -> CGPath {
+    private var carShape: CGPath {
         let tip = CGPoint(x: 25, y: 0)
         let corner1 = tip + (-50, -20)
         let inlet = corner1 + (10, 20)
