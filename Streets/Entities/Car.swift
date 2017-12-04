@@ -64,7 +64,7 @@ class Car : SKShapeNode, RunsOnGameLoop {
         let distanceRemaining = distance - distanceSoFar
         
         //update current position
-        let positionPercentage = CGFloat(-0.5 * cos(M_PI * Double(self.travelPercentage)) + 0.5) //0.5cos(πx) + 0.5
+        let positionPercentage = CGFloat(-0.5 * cos(.pi * Double(self.travelPercentage)) + 0.5) //0.5cos(πx) + 0.5
         let (newPosition, newAngle) = positionFunction(positionPercentage)
         self.position = newPosition
         

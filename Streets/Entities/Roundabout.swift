@@ -28,7 +28,7 @@ class Roundabout : Street {
     func update(center: CGPoint, radius: CGFloat) {
         self.center = center
         self.radius = radius
-        self.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle: CGFloat(2 * M_PI), clockwise: true).cgPath
+        self.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle: 2 * .pi, clockwise: true).cgPath
     }
     
     
@@ -52,7 +52,7 @@ class Roundabout : Street {
         
         //always travel clockwise
         if endAngle <= startAngle {
-            endAngle += CGFloat(2 * M_PI)
+            endAngle += 2 * .pi
         }
         
         return UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
