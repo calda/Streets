@@ -1,0 +1,4 @@
+framework module CGPathIntersection {
+    header "CGPathIntersection-Swift.h"
+    requires objc
+}
